@@ -59,3 +59,5 @@ sysinfo.txt
 crashlytics-build.properties
 
 RPGCombat/Library
+RPGCombat/Logs
+RPGCombat/Temp
