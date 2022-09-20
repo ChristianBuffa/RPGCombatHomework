@@ -330,8 +330,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 761060091320001559}
-  hpSlider: {fileID: 0}
-  manaSlider: {fileID: 0}
+  hpSlider: {fileID: 9168474486458812211}
+  manaSlider: {fileID: 5139657399403146926}
 --- !u!1 &761060091320001545
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +560,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 6.36, y: 0.00026607513}
+  m_AnchoredPosition: {x: 6.3600006, y: 0.00026607513}
   m_SizeDelta: {x: -17.32, y: -5.7379}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3851977028196881374

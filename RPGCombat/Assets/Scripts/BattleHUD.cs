@@ -15,10 +15,10 @@ public class BattleHUD : MonoBehaviour
         nameText.text = unit.unitName;
 
         hpSlider.maxValue = unit.maxHp;
-        hpSlider.value = unit.currentHp;
+        hpSlider.value = unit.maxHp;
 
         manaSlider.maxValue = unit.maxMana;
-        manaSlider.value = unit.currentMana;
+        manaSlider.value = unit.maxMana;
     }
 
     public void SetHpAndMana(int hp, int mana)
