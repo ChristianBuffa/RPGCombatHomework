@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    private int maxHp, currentHp;
-    private int maxMana, currentMana;
-    private int speed;
-    private int attackDamage;
+    [HideInInspector] public string unitName;
+    [HideInInspector] public int maxHp, currentHp;
+    [HideInInspector] public int maxMana, currentMana;
+    [HideInInspector] public int speed;
+    [HideInInspector] public int attackDamage;
 
     [SerializeField] UnitData unitData;
 
@@ -17,6 +18,7 @@ public class Unit : MonoBehaviour
         maxMana = unitData.maxMana;
         speed = unitData.speed;
         attackDamage = unitData.attackDamage;
+        unitName = unitData.name;
     }
 
     private void Start()
@@ -28,5 +30,15 @@ public class Unit : MonoBehaviour
     private void Update()
     {
         
+    }
+
+    public bool TakeDamage(int dmg)
+    {
+        currentHp -= dmg;
+
+        if (currentHp <= 0)
+            return true;
+        else
+            return false;
     }
 }

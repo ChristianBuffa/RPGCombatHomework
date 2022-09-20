@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4264986828d7b8f45acb6eca8f328229, type: 3}
-  m_Name: SampleUnit
+  m_Name: SampleEnemy
   m_EditorClassIdentifier: 
-  name: player
+  name: Enemy
   maxHp: 10
   maxMana: 5
   attackDamage: 2
   speed: 15
-  element: 2
+  element: 0
