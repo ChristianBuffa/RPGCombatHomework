@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] Text playerUIName;
     [SerializeField] Text enemyUIName;
+    [SerializeField] Text displayText;
 
     [SerializeField] BattleHUD playerHUD;
     [SerializeField] BattleHUD enemyHUD;
@@ -42,6 +43,8 @@ public class BattleManager : MonoBehaviour
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
 
+        displayText.text = "Setting up the battle...";
+
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
@@ -50,7 +53,7 @@ public class BattleManager : MonoBehaviour
 
     private void PlayerTurn()
     {
-
+        displayText.text = "chose an action...";
     }
     
     IEnumerator PlayerAttack()
@@ -59,19 +62,59 @@ public class BattleManager : MonoBehaviour
 
         enemyHUD.SetHpAndMana(enemyUnit.currentHp, enemyUnit.currentMana);
 
+        displayText.text = "attacked";
+
         //Debug.Log(enemyUnit.currentHp);
 
         yield return new WaitForSeconds(2f);
 
-        Debug.Log("Suca forte");
-
         if(isDead)
         {
             state = BattleState.WON;
+            EndBattle();
         }
         else
         {
             state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    IEnumerator EnemyTurn()
+    {
+        displayText.text = enemyUnit.unitName + "'s turn..."; 
+
+        yield return new WaitForSeconds(1f);
+
+        bool isDead = playerUnit.TakeDamage(enemyUnit.attackDamage);
+
+        playerHUD.SetHpAndMana(playerUnit.currentHp, playerUnit.currentMana);
+
+        displayText.text = enemyUnit.unitName + " attacked!";
+
+        yield return new WaitForSeconds(1f);
+
+        if(isDead)
+        {
+            state = BattleState.LOST;
+            EndBattle();
+        }
+        else
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+    }
+
+    private void EndBattle()
+    {
+        if(state == BattleState.WON)
+        {
+            displayText.text = "You won!";
+        }
+        else if(state == BattleState.LOST)
+        {
+            displayText.text = "You lost...";
         }
     }
 
