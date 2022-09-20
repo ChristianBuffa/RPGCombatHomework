@@ -13,8 +13,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Transform playerTransform;
     [SerializeField] Transform enemyTransform;
 
-    [SerializeField] Text playerUIName;
-    [SerializeField] Text enemyUIName;
     [SerializeField] Text displayText;
 
     [SerializeField] BattleHUD playerHUD;
