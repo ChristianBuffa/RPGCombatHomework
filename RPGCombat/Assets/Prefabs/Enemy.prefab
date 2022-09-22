@@ -143,3 +143,7 @@ MonoBehaviour:
   unitStrongAgainstModifier: 0
   unitData: {fileID: 11400000, guid: 878945ab6395a854a966ea1395bad35a, type: 2}
   elementData: {fileID: 11400000, guid: 429a0e3ba0a6ea74390197d69888ebf9, type: 2}
+  abilityOne: {fileID: 11400000, guid: e657ad5ad030101479738ce93ee6eb07, type: 2}
+  abilityTwo: {fileID: 0}
+  abilityThree: {fileID: 0}
+  abilityFour: {fileID: 0}

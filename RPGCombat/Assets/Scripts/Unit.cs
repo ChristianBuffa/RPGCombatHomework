@@ -19,12 +19,20 @@ public class Unit : MonoBehaviour
     [SerializeField] UnitData unitData;
     [SerializeField] ElementData elementData;
 
+    public AbilityData abilityOne;
+    public AbilityData abilityTwo;
+    public AbilityData abilityThree;
+    public AbilityData abilityFour;
+
+    private BattleHUD battleHUD;
+
     private void Awake()
     {
+        battleHUD = FindObjectOfType<BattleHUD>();
+
         maxHp = unitData.maxHp;
         maxMana = unitData.maxMana;
         speed = unitData.speed;
-        attackDamage = unitData.attackDamage;
         unitName = unitData.name;
 
         unitElement = elementData.elementName;
@@ -43,6 +51,16 @@ public class Unit : MonoBehaviour
     private void Update()
     {
         
+    }
+
+    public void Heal(int healCapacity)
+    {
+        currentHp += healCapacity;
+
+        if(currentHp > maxHp)
+            currentHp = maxHp;
+
+        battleHUD.SetHpAndMana(currentHp, currentMana);
     }
 
     public bool TakeDamage(int dmg)
