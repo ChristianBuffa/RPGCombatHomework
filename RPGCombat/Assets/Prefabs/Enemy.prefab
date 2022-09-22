@@ -130,4 +130,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: 
+  maxHp: 0
+  currentHp: 0
+  maxMana: 0
+  currentMana: 0
+  speed: 0
+  attackDamage: 0
+  unitElement: 
+  unitWeakToElement: 
+  unitStrongAgainstElement: 
+  unitWeakToElementModifier: 0
+  unitStrongAgainstModifier: 0
   unitData: {fileID: 11400000, guid: 878945ab6395a854a966ea1395bad35a, type: 2}
+  elementData: {fileID: 11400000, guid: 429a0e3ba0a6ea74390197d69888ebf9, type: 2}

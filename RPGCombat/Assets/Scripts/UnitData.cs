@@ -10,15 +10,4 @@ public class UnitData : ScriptableObject
     public int maxMana;
     public int attackDamage;
     public int speed;
-
-    public enum Element
-    {
-        fire,
-        water,
-        grass,
-        light,
-        shadow,
-    }
-
-    public Element element;
 }

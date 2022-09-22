@@ -10,7 +10,14 @@ public class Unit : MonoBehaviour
     [HideInInspector] public int speed;
     [HideInInspector] public int attackDamage;
 
+    [HideInInspector] public string unitElement;
+    [HideInInspector] public string unitWeakToElement;
+    [HideInInspector] public string unitStrongAgainstElement;
+    [HideInInspector] public float unitWeakToElementModifier;
+    [HideInInspector] public float unitStrongAgainstModifier;
+
     [SerializeField] UnitData unitData;
+    [SerializeField] ElementData elementData;
 
     private void Awake()
     {
@@ -19,6 +26,12 @@ public class Unit : MonoBehaviour
         speed = unitData.speed;
         attackDamage = unitData.attackDamage;
         unitName = unitData.name;
+
+        unitElement = elementData.elementName;
+        unitWeakToElement = elementData.weakAgainstElement;
+        unitStrongAgainstElement = elementData.strongAgainstElement;
+        unitWeakToElementModifier = elementData.weakToElementModifier;
+        unitStrongAgainstModifier = elementData.strongAgainstElementModifier;
     }
 
     private void Start()

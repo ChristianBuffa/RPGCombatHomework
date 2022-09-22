@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,13 +57,11 @@ public class BattleManager : MonoBehaviour
     
     IEnumerator PlayerAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.attackDamage);
+        bool isDead = enemyUnit.TakeDamage(ElementCheck(playerUnit, enemyUnit));
 
         enemyHUD.SetHpAndMana(enemyUnit.currentHp, enemyUnit.currentMana);
 
-        displayText.text = "attacked";
-
-        //Debug.Log(enemyUnit.currentHp);
+        Debug.Log(ElementCheck(playerUnit, enemyUnit));
 
         yield return new WaitForSeconds(2f);
 
@@ -84,13 +83,15 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        bool isDead = playerUnit.TakeDamage(enemyUnit.attackDamage);
-
-        playerHUD.SetHpAndMana(playerUnit.currentHp, playerUnit.currentMana);
-
         displayText.text = enemyUnit.unitName + " attacked!";
 
         yield return new WaitForSeconds(1f);
+
+        bool isDead = playerUnit.TakeDamage(ElementCheck(enemyUnit, playerUnit));
+
+        playerHUD.SetHpAndMana(playerUnit.currentHp, playerUnit.currentMana);
+
+        yield return new WaitForSeconds(2f);
 
         if(isDead)
         {
@@ -128,4 +129,32 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private int ElementCheck(Unit attackingUnit, Unit damagedUnit)
+    {
+        int damage;
+        float calculatedDamage;
+
+        if(attackingUnit.unitElement == damagedUnit.unitStrongAgainstElement)
+        {
+            calculatedDamage = attackingUnit.attackDamage * attackingUnit.unitWeakToElementModifier;
+
+            displayText.text = "attack is not very effective...";
+        }
+        else if(attackingUnit.unitElement == damagedUnit.unitWeakToElement)
+        {
+            calculatedDamage = attackingUnit.attackDamage * attackingUnit.unitStrongAgainstModifier;
+
+            displayText.text = "attack is very effective!";
+        }
+        else
+        {
+            calculatedDamage = attackingUnit.attackDamage;
+
+            displayText.text = "attacked";
+        }
+
+        damage = ((int)calculatedDamage);
+
+        return damage;
+    }
 }
