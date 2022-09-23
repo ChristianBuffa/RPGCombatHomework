@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,17 +22,17 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject enemyPrefab4;
     [SerializeField] GameObject enemyPrefab5;
 
-    [SerializeField] Transform playerTransform1;
-    [SerializeField] Transform playerTransform2;
-    [SerializeField] Transform playerTransform3;
-    [SerializeField] Transform playerTransform4;
-    [SerializeField] Transform playerTransform5;
+    public Transform playerTransform1;
+    public Transform playerTransform2;
+    public Transform playerTransform3;
+    public Transform playerTransform4;
+    public Transform playerTransform5;
 
-    [SerializeField] Transform enemyTransform1;
-    [SerializeField] Transform enemyTransform2;
-    [SerializeField] Transform enemyTransform3;
-    [SerializeField] Transform enemyTransform4;
-    [SerializeField] Transform enemyTransform5;
+    public Transform enemyTransform1;
+    public Transform enemyTransform2;
+    public Transform enemyTransform3;
+    public Transform enemyTransform4;
+    public Transform enemyTransform5;
 
     [SerializeField] Text displayText;
 
@@ -40,31 +41,35 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Text abilityThreeText;
     [SerializeField] Text abilityFourText;
 
-    [SerializeField] BattleHUD playerHUD1;
-    [SerializeField] BattleHUD playerHUD2;
-    [SerializeField] BattleHUD playerHUD3;
-    [SerializeField] BattleHUD playerHUD4;
-    [SerializeField] BattleHUD playerHUD5;
-    [SerializeField] BattleHUD enemyHUD1;
-    [SerializeField] BattleHUD enemyHUD2;
-    [SerializeField] BattleHUD enemyHUD3;
-    [SerializeField] BattleHUD enemyHUD4;
-    [SerializeField] BattleHUD enemyHUD5;
+    public BattleHUD playerHUD1;
+    public BattleHUD playerHUD2;
+    public BattleHUD playerHUD3;
+    public BattleHUD playerHUD4;
+    public BattleHUD playerHUD5;
+    public BattleHUD enemyHUD1;
+    public BattleHUD enemyHUD2;
+    public BattleHUD enemyHUD3;
+    public BattleHUD enemyHUD4;
+    public BattleHUD enemyHUD5;
 
     private Unit playerUnit;
-    [HideInInspector] public Unit enemyUnit;
+    [HideInInspector] public Unit selectedEnemy;
+    [HideInInspector] public bool enemyIsSelected;
 
-    GameObject playerGO1;
-    GameObject playerGO2;
-    GameObject playerGO3;
-    GameObject playerGO4;
-    GameObject playerGO5;
+    [HideInInspector] public GameObject playerGO1;
+    [HideInInspector] public GameObject playerGO2;
+    [HideInInspector] public GameObject playerGO3;
+    [HideInInspector] public GameObject playerGO4;
+    [HideInInspector] public GameObject playerGO5;
 
-    GameObject enemyGO1;
-    GameObject enemyGO2;
-    GameObject enemyGO3;
-    GameObject enemyGO4;
-    GameObject enemyGO5;
+    [HideInInspector] public GameObject enemyGO1;
+    [HideInInspector] public GameObject enemyGO2;
+    [HideInInspector] public GameObject enemyGO3;
+    [HideInInspector] public GameObject enemyGO4;
+    [HideInInspector] public GameObject enemyGO5;
+
+    private int playerCounter;
+    private int enemyCounter;
 
     public BattleState state;
 
@@ -73,6 +78,11 @@ public class BattleManager : MonoBehaviour
         state = BattleState.START;
 
         StartCoroutine(SetUpBattle());
+    }
+
+    private void Update()
+    {
+        //Debug.Log(selectedEnemy.transform);
     }
 
     IEnumerator SetUpBattle()
@@ -89,7 +99,7 @@ public class BattleManager : MonoBehaviour
         enemyGO4 = Instantiate(enemyPrefab4, enemyTransform4);
         enemyGO5 = Instantiate(enemyPrefab5, enemyTransform5);
 
-        enemyUnit = enemyGO1.GetComponent<Unit>();
+        selectedEnemy = enemyGO1.GetComponent<Unit>();
 
         playerHUD1.SetHUD(playerGO1.GetComponent<Unit>());
         playerHUD2.SetHUD(playerGO2.GetComponent<Unit>());
@@ -103,6 +113,10 @@ public class BattleManager : MonoBehaviour
         enemyHUD5.SetHUD(enemyGO5.GetComponent<Unit>());
 
         displayText.text = "Setting up the battle...";
+
+        enemyIsSelected = false;
+        playerCounter = 5;
+        enemyCounter = 5;
 
         yield return new WaitForSeconds(2f);
 
@@ -135,11 +149,9 @@ public class BattleManager : MonoBehaviour
             turnCounter = 1;
             Debug.Log(turnCounter);
         }
-
-        PlayerAction();
     }
 
-    private void PlayerAction()
+    public void PlayerAction()
     {
         state = BattleState.PLAYERACTION;
 
@@ -162,18 +174,29 @@ public class BattleManager : MonoBehaviour
     {
         if (ability.abilityType == AbilityType.ATTACK)
         {
-            bool isDead = enemyUnit.TakeDamage(ElementCheck(ability, enemyUnit));
+            bool isDead = selectedEnemy.TakeDamage(ElementCheck(ability, selectedEnemy));
 
-            enemyHUD1.SetHpAndMana(enemyUnit.currentHp, enemyUnit.currentMana);
+            selectedEnemy.battleHUD.SetHpAndMana(selectedEnemy.currentHp, selectedEnemy.currentMana);
 
-            Debug.Log(ElementCheck(ability, enemyUnit));
+            Debug.Log(ElementCheck(ability, selectedEnemy));
 
             yield return new WaitForSeconds(2f);
 
             if (isDead)
             {
-                state = BattleState.WON;
-                EndBattle();
+                enemyCounter--;
+                selectedEnemy.gameObject.SetActive(false);
+
+                if (enemyCounter == 0)
+                {
+                    state = BattleState.WON;
+                    EndBattle();
+                }
+                else
+                {
+                    state = BattleState.ENEMYTURN;
+                    StartCoroutine(EnemyTurn());
+                }
             }
             else
             {
@@ -208,13 +231,13 @@ public class BattleManager : MonoBehaviour
     {
         float randNumber = Random.Range(1, 4);
 
-        displayText.text = "enemy " + enemyUnit.unitName + "'s turn..."; 
+        displayText.text = "enemy " + selectedEnemy.unitName + "'s turn..."; 
 
         yield return new WaitForSeconds(1f);
 
         int abilitySelection = ((int)randNumber);
 
-        bool isDead = playerUnit.TakeDamage(ElementCheck(enemyUnit.abilityOne, playerUnit));
+        bool isDead = playerUnit.TakeDamage(ElementCheck(selectedEnemy.abilityOne, playerUnit));
 
         playerHUD1.SetHpAndMana(playerUnit.currentHp, playerUnit.currentMana);
 
@@ -222,13 +245,24 @@ public class BattleManager : MonoBehaviour
 
         if(isDead)
         {
-            state = BattleState.LOST;
-            EndBattle();
+            playerCounter--;
+            playerUnit.gameObject.SetActive(false);
+
+            if (playerCounter == 0)
+            { 
+                state = BattleState.LOST;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.PLAYERSELECT;
+                PlayerEnemySelect();
+            }
         }
         else
         {
-            state = BattleState.PLAYERACTION;
-            PlayerAction();
+            state = BattleState.PLAYERSELECT;
+            PlayerEnemySelect();
         }
     }
 

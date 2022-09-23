@@ -24,11 +24,55 @@ public class Unit : MonoBehaviour
     public AbilityData abilityThree;
     public AbilityData abilityFour;
 
-    private BattleHUD battleHUD;
+    [HideInInspector] public BattleHUD battleHUD;
+    private BattleManager battleManager;
 
     private void Awake()
     {
-        battleHUD = FindObjectOfType<BattleHUD>();
+        battleManager = FindObjectOfType<BattleManager>();
+
+        if(gameObject.transform.position == battleManager.playerTransform1.position)
+        {
+            battleHUD = battleManager.playerHUD1.GetComponent<BattleHUD>();
+        }
+        else if(gameObject.transform.position == battleManager.playerTransform2.position)
+        {
+            battleHUD = battleManager.playerHUD2.GetComponent<BattleHUD>();
+        }
+        else if (gameObject.transform.position == battleManager.playerTransform3.position)
+        {
+            battleHUD = battleManager.playerHUD3.GetComponent<BattleHUD>();
+        }
+        else if (gameObject.transform.position == battleManager.playerTransform4.position)
+        {
+            battleHUD = battleManager.playerHUD4.GetComponent<BattleHUD>();
+        }
+        else if (gameObject.transform.position == battleManager.playerTransform5.position)
+        {
+            battleHUD = battleManager.playerHUD5.GetComponent<BattleHUD>();
+        }
+        else if (gameObject.transform.position == battleManager.enemyTransform1.position)
+        {
+            battleHUD = battleManager.enemyHUD1.GetComponent<BattleHUD>();
+        }
+        else if (gameObject.transform.position == battleManager.enemyTransform2.position)
+        {
+            battleHUD = battleManager.enemyHUD2.GetComponent<BattleHUD>();
+        }
+        else if (gameObject.transform.position == battleManager.enemyTransform3.position)
+        {
+            battleHUD = battleManager.enemyHUD3.GetComponent<BattleHUD>();
+        }
+        else if (gameObject.transform.position == battleManager.enemyTransform4.position)
+        {
+            battleHUD = battleManager.enemyHUD4.GetComponent<BattleHUD>();
+        }
+        else if (gameObject.transform.position == battleManager.enemyTransform5.position)
+        {
+            battleHUD = battleManager.enemyHUD5.GetComponent<BattleHUD>();
+        }
+
+        Debug.Log(battleHUD.name);
 
         maxHp = unitData.maxHp;
         maxMana = unitData.maxMana;
