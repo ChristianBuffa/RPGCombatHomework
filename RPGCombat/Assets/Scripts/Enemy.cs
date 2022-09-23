@@ -46,7 +46,6 @@ public class Enemy : MonoBehaviour
                 Debug.Log("errore");
                 return;
             }
-            Debug.Log(battleManager.selectedEnemy.name);
         }
     }
 }

@@ -25,11 +25,13 @@ public class Unit : MonoBehaviour
     public AbilityData abilityFour;
 
     [HideInInspector] public BattleHUD battleHUD;
+    [HideInInspector] public bool isUnitDead;
     private BattleManager battleManager;
 
     private void Awake()
     {
         battleManager = FindObjectOfType<BattleManager>();
+        isUnitDead = false;
 
         if(gameObject.transform.position == battleManager.playerTransform1.position)
         {
@@ -72,11 +74,8 @@ public class Unit : MonoBehaviour
             battleHUD = battleManager.enemyHUD5.GetComponent<BattleHUD>();
         }
 
-        Debug.Log(battleHUD.name);
-
         maxHp = unitData.maxHp;
         maxMana = unitData.maxMana;
-        speed = unitData.speed;
         unitName = unitData.name;
 
         unitElement = elementData.elementName;
@@ -112,8 +111,14 @@ public class Unit : MonoBehaviour
         currentHp -= dmg;
 
         if (currentHp <= 0)
+        {
+            isUnitDead = true;
             return true;
+        }
         else
+        {
+            isUnitDead = false;
             return false;
+        }
     }
 }

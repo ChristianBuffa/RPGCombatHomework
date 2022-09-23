@@ -2353,9 +2353,9 @@ MonoBehaviour:
   playerPrefab4: {fileID: 400198697177576001, guid: e689d82c154f675488700b17265fff7e, type: 3}
   playerPrefab5: {fileID: 400198697177576001, guid: e689d82c154f675488700b17265fff7e, type: 3}
   enemyPrefab1: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
-  enemyPrefab2: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
+  enemyPrefab2: {fileID: 3877788253202955066, guid: db98127713a013d49b2819a25e87d82e, type: 3}
   enemyPrefab3: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
-  enemyPrefab4: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
+  enemyPrefab4: {fileID: 3877788253202955066, guid: f5088056df1fee647b0aef08667e629c, type: 3}
   enemyPrefab5: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
   playerTransform1: {fileID: 948737323}
   playerTransform2: {fileID: 1446645946}
@@ -2382,7 +2382,19 @@ MonoBehaviour:
   enemyHUD3: {fileID: 1690745233}
   enemyHUD4: {fileID: 1845123837}
   enemyHUD5: {fileID: 461266291}
-  enemyUnit: {fileID: 0}
+  selectedPlayer: {fileID: 0}
+  selectedEnemy: {fileID: 0}
+  enemyIsSelected: 0
+  playerGO1: {fileID: 0}
+  playerGO2: {fileID: 0}
+  playerGO3: {fileID: 0}
+  playerGO4: {fileID: 0}
+  playerGO5: {fileID: 0}
+  enemyGO1: {fileID: 0}
+  enemyGO2: {fileID: 0}
+  enemyGO3: {fileID: 0}
+  enemyGO4: {fileID: 0}
+  enemyGO5: {fileID: 0}
   state: 0
 --- !u!1 &1199797513
 GameObject:
@@ -3453,6 +3465,10 @@ PrefabInstance:
     - target: {fileID: 761060090978970546, guid: 0c9c536aa6aa13247a088f0bd0d1d88a, type: 3}
       propertyPath: m_Name
       value: EnemyUnitHUD1
+      objectReference: {fileID: 0}
+    - target: {fileID: 761060090978970546, guid: 0c9c536aa6aa13247a088f0bd0d1d88a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2795668400909304942, guid: 0c9c536aa6aa13247a088f0bd0d1d88a, type: 3}
       propertyPath: m_AnchorMax.y

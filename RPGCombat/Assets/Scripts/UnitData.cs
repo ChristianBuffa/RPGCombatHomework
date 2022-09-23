@@ -8,5 +8,4 @@ public class UnitData : ScriptableObject
     public string name;
     public int maxHp;
     public int maxMana;
-    public int speed;
 }
