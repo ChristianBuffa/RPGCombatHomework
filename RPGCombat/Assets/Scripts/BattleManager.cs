@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BattleState { START, PLAYERSELECT, PLAYERACTION, ENEMYSELECT, ENEMYTURN, WON, LOST };
+public enum BattleState { START, PLAYERTURNCHECK, PLAYERSELECT, PLAYERACTION, ENEMYSELECT, ENEMYTURN, WON, LOST };
 
 public class BattleManager : MonoBehaviour
 {
@@ -125,32 +125,62 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        state = BattleState.PLAYERSELECT;
+        state = BattleState.PLAYERTURNCHECK;
         PlayerEnemySelect();
+    }
+
+    private void PlayerTurnCheck()
+    {
+        if (playerTurnCounter == 1 && playerGO1.GetComponent<Unit>().isUnitDead == false)
+        {
+            playerUnit = playerGO1.GetComponent<Unit>();
+            playerTurnCounter++;
+        }
+        else if (playerTurnCounter == 2 && playerGO2.GetComponent<Unit>().isUnitDead == false)
+        {
+            playerUnit = playerGO2.GetComponent<Unit>();
+            playerTurnCounter++;
+        }
+        else if (playerTurnCounter == 3 && playerGO3.GetComponent<Unit>().isUnitDead == false)
+        {
+            playerUnit = playerGO3.GetComponent<Unit>();
+            playerTurnCounter++;
+        }
+        else if (playerTurnCounter == 4 && playerGO4.GetComponent<Unit>().isUnitDead == false)
+        {
+            playerUnit = playerGO4.GetComponent<Unit>();
+            playerTurnCounter++;
+        }
+        else if (playerTurnCounter == 5 && playerGO5.GetComponent<Unit>().isUnitDead == false)
+        {
+            playerUnit = playerGO5.GetComponent<Unit>();
+            playerTurnCounter++;
+        }
+        else
+        {
+            playerUnit = null;
+            playerTurnCounter++;
+        }
+
+        if(playerTurnCounter > 5)
+        {
+            playerTurnCounter = 1;
+        }
     }
 
     private void PlayerEnemySelect()
     {
-        if (playerTurnCounter == 1)
-            playerUnit = playerGO1.GetComponent<Unit>();
-        else if (playerTurnCounter == 2)
-            playerUnit = playerGO2.GetComponent<Unit>();
-        else if (playerTurnCounter == 3)
-            playerUnit = playerGO3.GetComponent<Unit>();
-        else if (playerTurnCounter == 4)
-            playerUnit = playerGO4.GetComponent<Unit>();
-        else if (playerTurnCounter == 5)
-            playerUnit = playerGO5.GetComponent<Unit>();
+        Debug.Log("turno player = " + playerTurnCounter);
+        PlayerTurnCheck();
 
-        //select enemy
-        displayText.text = "select an enemy";
-
-        playerTurnCounter++;
-
-        if (playerTurnCounter > 5)
+        if (playerUnit != null)
         {
-            playerTurnCounter = 1;
-            Debug.Log(playerTurnCounter);
+            displayText.text = "select an enemy";
+            state = BattleState.PLAYERSELECT;
+        }
+        else
+        {
+            PlayerTurnCheck();
         }
     }
 
@@ -172,7 +202,7 @@ public class BattleManager : MonoBehaviour
 
         displayText.text = "chose an action...";
     }
-    
+
     IEnumerator PlayerAbility(AbilityData ability)
     {
         if (ability.abilityType == AbilityType.ATTACK)
@@ -207,9 +237,9 @@ public class BattleManager : MonoBehaviour
                 EnemyPlayerSelect();
             }
         }
-        else if(ability.abilityType == AbilityType.HEAL)
+        else if (ability.abilityType == AbilityType.HEAL)
         {
-            if (playerUnit.currentHp < playerUnit.currentMana)
+            if (playerUnit.currentHp < playerUnit.maxHp)
             {
                 playerUnit.Heal(ability.abilityHealCapacity);
 
@@ -232,58 +262,49 @@ public class BattleManager : MonoBehaviour
 
     private void EnemyPlayerSelect()
     {
-        if (enemyTunrCounter == 1)
-            enemyUnit = enemyGO1.GetComponent<Unit>();
-        else if (enemyTunrCounter == 2)
-            enemyUnit = enemyGO2.GetComponent<Unit>();
-        else if (enemyTunrCounter == 3)
-            enemyUnit = enemyGO3.GetComponent<Unit>();
-        else if (enemyTunrCounter == 4)
-            enemyUnit = enemyGO4.GetComponent<Unit>();
-        else if (enemyTunrCounter == 5)
-            enemyUnit = enemyGO5.GetComponent<Unit>();
+        Debug.Log("turno enemy = " + enemyTunrCounter);
+        EnemyTurnCheck();
 
-        displayText.text = enemyUnit.unitName + " is selecting...";
-
-        enemyTunrCounter++;
-
-        if (enemyTunrCounter > 5)
+        if (enemyUnit != null)
         {
-            enemyTunrCounter = 1;
+            displayText.text = enemyUnit.unitName + " is selecting...";
+
+            GetRandomPlayerUnit();
+            Debug.Log(selectedPlayer);
+            StartCoroutine(EnemyTurn());
         }
-
-        Debug.Log(enemyTunrCounter);
-        GetRandomPlayerUnit();
-
-        Debug.Log(selectedPlayer);
-        StartCoroutine(EnemyTurn());
+        else
+        {
+            Debug.Log("suca");
+            EnemyPlayerSelect();
+        }
     }
 
     IEnumerator EnemyTurn()
     {
         yield return new WaitForSeconds(2f);
 
-        float randNumber = Random.Range(1, 4);
+        int randNumber = Random.Range(1, 4);
 
-        displayText.text = "enemy " + enemyUnit.unitName + "'s turn..."; 
+        displayText.text = "enemy " + enemyUnit.unitName + "'s turn...";
 
         yield return new WaitForSeconds(1f);
 
-        int abilitySelection = ((int)randNumber);
+        int abilitySelection = randNumber;
 
         bool isDead = selectedPlayer.TakeDamage(ElementCheck(enemyUnit.abilityOne, selectedPlayer));
 
-        selectedPlayer.battleHUD.SetHpAndMana(playerUnit.currentHp, playerUnit.currentMana);
+        selectedPlayer.battleHUD.SetHpAndMana(selectedPlayer.currentHp, selectedPlayer.currentMana);
 
         yield return new WaitForSeconds(2f);
 
-        if(isDead)
+        if (isDead)
         {
             playerCounter--;
             playerUnit.gameObject.SetActive(false);
 
             if (playerCounter == 0)
-            { 
+            {
                 state = BattleState.LOST;
                 EndBattle();
             }
@@ -297,6 +318,45 @@ public class BattleManager : MonoBehaviour
         {
             state = BattleState.PLAYERSELECT;
             PlayerEnemySelect();
+        }
+    }
+
+    private void EnemyTurnCheck()
+    {
+        if (enemyTunrCounter == 1 && enemyGO1.GetComponent<Unit>().isUnitDead == false)
+        {
+            enemyUnit = enemyGO1.GetComponent<Unit>();
+            enemyTunrCounter++;
+        }
+        else if (enemyTunrCounter == 2 && enemyGO2.GetComponent<Unit>().isUnitDead == false)
+        {
+            enemyUnit = enemyGO2.GetComponent<Unit>();
+            enemyTunrCounter++;
+        }
+        else if (enemyTunrCounter == 3 && enemyGO3.GetComponent<Unit>().isUnitDead == false)
+        {
+            enemyUnit = enemyGO3.GetComponent<Unit>();
+            enemyTunrCounter++;
+        }
+        else if (enemyTunrCounter == 4 && enemyGO4.GetComponent<Unit>().isUnitDead == false)
+        {
+            enemyUnit = enemyGO4.GetComponent<Unit>();
+            enemyTunrCounter++;
+        }
+        else if (enemyTunrCounter == 5 && enemyGO5.GetComponent<Unit>().isUnitDead == false)
+        {
+            enemyUnit = enemyGO5.GetComponent<Unit>();
+            enemyTunrCounter++;
+        }
+        else
+        {
+            enemyUnit = null;
+            enemyTunrCounter++;
+        }
+
+        if (enemyTunrCounter > 5)
+        {
+            enemyTunrCounter = 1;
         }
     }
 
@@ -363,11 +423,11 @@ public class BattleManager : MonoBehaviour
 
     private void EndBattle()
     {
-        if(state == BattleState.WON)
+        if (state == BattleState.WON)
         {
             displayText.text = "You won!";
         }
-        else if(state == BattleState.LOST)
+        else if (state == BattleState.LOST)
         {
             displayText.text = "You lost...";
         }
@@ -481,13 +541,13 @@ public class BattleManager : MonoBehaviour
         int damage;
         float calculatedDamage;
 
-        if(ability.abilityElementType == damagedUnit.unitStrongAgainstElement)
+        if (ability.abilityElementType == damagedUnit.unitStrongAgainstElement)
         {
             calculatedDamage = ability.abilityDamage * ability.weakToElementModifier;
 
             displayText.text = "attack is not very effective...";
         }
-        else if(ability.abilityElementType == damagedUnit.unitWeakToElement)
+        else if (ability.abilityElementType == damagedUnit.unitWeakToElement)
         {
             calculatedDamage = ability.abilityDamage * ability.strongAgainstElementMultiplier;
 
