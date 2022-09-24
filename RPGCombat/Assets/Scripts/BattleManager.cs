@@ -449,14 +449,17 @@ public class BattleManager : MonoBehaviour
 
         bool isDead = selectedPlayer.TakeDamage(ElementCheck(enemyUnit.abilityOne, selectedPlayer));
 
+        Debug.LogWarning(selectedPlayer);
         selectedPlayer.battleHUD.SetHpAndMana(selectedPlayer.currentHp, selectedPlayer.currentMana);
+
+        //Debug.Log("name is " + selectedPlayer.unitName);
 
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
             playerCounter--;
-            playerUnit.gameObject.SetActive(false);
+            selectedPlayer.gameObject.SetActive(false);
 
             if (playerCounter == 0)
             {

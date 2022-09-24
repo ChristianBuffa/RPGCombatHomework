@@ -1642,10 +1642,10 @@ MonoBehaviour:
   playerPrefab4: {fileID: 400198697177576001, guid: f7f1f82c45529b8408f8f9ae8616af60, type: 3}
   playerPrefab5: {fileID: 400198697177576001, guid: 81bfcfd5479936a4484a37e176d37913, type: 3}
   enemyPrefab1: {fileID: 3877788253202955066, guid: 67e3005d36a4fc84cbaeb52c86af4a58, type: 3}
-  enemyPrefab2: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
+  enemyPrefab2: {fileID: 3877788253202955066, guid: 4049498ced38cd7489f07d2008cda4a6, type: 3}
   enemyPrefab3: {fileID: 3877788253202955066, guid: 908cc1ef30f54694b9a57d1e4fbdfd95, type: 3}
-  enemyPrefab4: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
-  enemyPrefab5: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
+  enemyPrefab4: {fileID: 3877788253202955066, guid: 62e630bdd582f32468c308cb4a64eab9, type: 3}
+  enemyPrefab5: {fileID: 3877788253202955066, guid: 1d9cd65e97f60204ab592391bda0fcdc, type: 3}
   playerTransform1: {fileID: 948737323}
   playerTransform2: {fileID: 1446645946}
   playerTransform3: {fileID: 2112917261}
