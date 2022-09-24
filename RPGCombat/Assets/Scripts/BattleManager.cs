@@ -399,7 +399,14 @@ public class BattleManager : MonoBehaviour
 
             GetRandomPlayerUnit();
             Debug.Log(selectedPlayer);
-            StartCoroutine(EnemyTurn());
+            if (selectedEnemy != null)
+            {
+                StartCoroutine(EnemyTurn());
+            }
+            else
+            {
+                EnemyPlayerSelect();
+            }
         }
         else
         {

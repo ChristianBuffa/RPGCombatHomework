@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29733b5358a17f44aaa1de55847d72d5, type: 3}
+  m_Name: W ATTACK SINGLE
+  m_EditorClassIdentifier: 
+  abilityName: trident
+  abilityElementSprite: {fileID: 21300000, guid: b811602992b61784c9aa65c3972580c3, type: 3}
+  abilityElementType: water
+  abilityAOE: 1
+  abilityType: 0
+  abilityDamage: 13
+  abilityHealCapacity: 0
+  strongAgainstElementMultiplier: 2
+  weakToElementModifier: 0.5
+  abilityBuffMultiplier: 0

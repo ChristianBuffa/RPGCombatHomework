@@ -1436,6 +1436,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUnitUI5
       objectReference: {fileID: 0}
+    - target: {fileID: 963801700847732227, guid: 0c9c536aa6aa13247a088f0bd0d1d88a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2795668400909304942, guid: 0c9c536aa6aa13247a088f0bd0d1d88a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1539,7 +1543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948737322}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.21, y: -0.3, z: 0}
+  m_LocalPosition: {x: -1.67, y: -0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1632,15 +1636,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab54f013d4566794093e6c4ead3a7548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab1: {fileID: 400198697177576001, guid: e689d82c154f675488700b17265fff7e, type: 3}
-  playerPrefab2: {fileID: 400198697177576001, guid: e689d82c154f675488700b17265fff7e, type: 3}
-  playerPrefab3: {fileID: 400198697177576001, guid: e689d82c154f675488700b17265fff7e, type: 3}
-  playerPrefab4: {fileID: 400198697177576001, guid: e689d82c154f675488700b17265fff7e, type: 3}
-  playerPrefab5: {fileID: 400198697177576001, guid: e689d82c154f675488700b17265fff7e, type: 3}
-  enemyPrefab1: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
-  enemyPrefab2: {fileID: 3877788253202955066, guid: db98127713a013d49b2819a25e87d82e, type: 3}
-  enemyPrefab3: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
-  enemyPrefab4: {fileID: 3877788253202955066, guid: f5088056df1fee647b0aef08667e629c, type: 3}
+  playerPrefab1: {fileID: 400198697177576001, guid: 80b20ffb9f46ba940a5f2d93e9ef811a, type: 3}
+  playerPrefab2: {fileID: 400198697177576001, guid: c88778fc9ddabe5419dfbed722ee7819, type: 3}
+  playerPrefab3: {fileID: 400198697177576001, guid: d68c23c5a175dec47b704395a0293753, type: 3}
+  playerPrefab4: {fileID: 400198697177576001, guid: f7f1f82c45529b8408f8f9ae8616af60, type: 3}
+  playerPrefab5: {fileID: 400198697177576001, guid: 81bfcfd5479936a4484a37e176d37913, type: 3}
+  enemyPrefab1: {fileID: 3877788253202955066, guid: 67e3005d36a4fc84cbaeb52c86af4a58, type: 3}
+  enemyPrefab2: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
+  enemyPrefab3: {fileID: 3877788253202955066, guid: 908cc1ef30f54694b9a57d1e4fbdfd95, type: 3}
+  enemyPrefab4: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
   enemyPrefab5: {fileID: 3877788253202955066, guid: 6ee4c82ea31204944b6f099b7c2f9418, type: 3}
   playerTransform1: {fileID: 948737323}
   playerTransform2: {fileID: 1446645946}
