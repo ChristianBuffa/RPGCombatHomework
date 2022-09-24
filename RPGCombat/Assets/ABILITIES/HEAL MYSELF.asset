@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HEAL MYSELF
   m_EditorClassIdentifier: 
   abilityName: heal
+  abilityElementSprite: {fileID: 21300000, guid: d6e0c600dd87b1b4c873e5928ecfef8a, type: 3}
   abilityElementType: light
   abilityAOE: 1
   abilityType: 1

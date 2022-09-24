@@ -17,3 +17,4 @@ MonoBehaviour:
   weakAgainstElement: grass
   weakToElementModifier: 0.5
   strongAgainstElementModifier: 2
+  elementSprite: {fileID: 21300000, guid: 28866ef8e4608ce4c89de561ff167e3c, type: 3}

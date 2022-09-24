@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class BattleHUD : MonoBehaviour
 {
+    public SpriteRenderer spriteRenderer;
+
     public Text nameText;
 
     public Slider hpSlider;
@@ -19,6 +21,8 @@ public class BattleHUD : MonoBehaviour
 
         manaSlider.maxValue = unit.maxMana;
         manaSlider.value = unit.maxMana;
+
+        spriteRenderer.sprite = unit.elementSprite;
     }
 
     public void SetHpAndMana(int hp, int mana)

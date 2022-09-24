@@ -15,6 +15,7 @@ public class Unit : MonoBehaviour
     [HideInInspector] public string unitStrongAgainstElement;
     [HideInInspector] public float unitWeakToElementModifier;
     [HideInInspector] public float unitStrongAgainstModifier;
+    [HideInInspector] public Sprite elementSprite;
 
     [SerializeField] UnitData unitData;
     [SerializeField] ElementData elementData;
@@ -83,6 +84,7 @@ public class Unit : MonoBehaviour
         unitStrongAgainstElement = elementData.strongAgainstElement;
         unitWeakToElementModifier = elementData.weakToElementModifier;
         unitStrongAgainstModifier = elementData.strongAgainstElementModifier;
+        elementSprite = elementData.elementSprite;
     }
 
     private void Start()

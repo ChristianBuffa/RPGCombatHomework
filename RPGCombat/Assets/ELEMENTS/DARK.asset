@@ -17,3 +17,4 @@ MonoBehaviour:
   weakAgainstElement: light
   weakToElementModifier: 0.5
   strongAgainstElementModifier: 2
+  elementSprite: {fileID: 21300000, guid: b216e2e2e5d2a494d9c2c9ccbde74156, type: 3}

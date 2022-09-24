@@ -12,4 +12,6 @@ public class ElementData : ScriptableObject
 
     public float weakToElementModifier;
     public float strongAgainstElementModifier;
+
+    public Sprite elementSprite;
 }

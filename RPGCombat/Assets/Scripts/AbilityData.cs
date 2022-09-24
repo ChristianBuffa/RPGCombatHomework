@@ -10,6 +10,8 @@ public class AbilityData : ScriptableObject
 {
     public string abilityName;
 
+    public Sprite abilityElementSprite;
+
     public string abilityElementType;
     public AbilityAOE abilityAOE;
     public AbilityType abilityType;

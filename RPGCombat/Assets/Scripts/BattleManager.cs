@@ -40,6 +40,10 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Text abilityTwoText;
     [SerializeField] Text abilityThreeText;
     [SerializeField] Text abilityFourText;
+    [SerializeField] SpriteRenderer abilityOneElement;
+    [SerializeField] SpriteRenderer abilityTwoElement;
+    [SerializeField] SpriteRenderer abilityThreeElement;
+    [SerializeField] SpriteRenderer abilityFourElement;
 
     public BattleHUD playerHUD1;
     public BattleHUD playerHUD2;
@@ -162,7 +166,7 @@ public class BattleManager : MonoBehaviour
             playerTurnCounter++;
         }
 
-        if(playerTurnCounter > 5)
+        if (playerTurnCounter > 5)
         {
             playerTurnCounter = 1;
         }
@@ -175,7 +179,7 @@ public class BattleManager : MonoBehaviour
 
         if (playerUnit != null)
         {
-            displayText.text = "select an enemy";
+            displayText.text = playerUnit.unitName + " 's turn.\nselect an enemy";
             state = BattleState.PLAYERSELECT;
         }
         else
@@ -189,23 +193,35 @@ public class BattleManager : MonoBehaviour
         state = BattleState.PLAYERACTION;
 
         if (playerUnit.abilityOne != null)
+        {
             abilityOneText.text = playerUnit.abilityOne.abilityName;
+            abilityOneElement.sprite = playerUnit.abilityOne.abilityElementSprite;
+        }
 
         if (playerUnit.abilityTwo != null)
+        {
             abilityTwoText.text = playerUnit.abilityTwo.abilityName;
+            abilityTwoElement.sprite = playerUnit.abilityTwo.abilityElementSprite;
+        }
 
         if (playerUnit.abilityThree != null)
+        {
             abilityThreeText.text = playerUnit.abilityThree.abilityName;
+            abilityThreeElement.sprite = playerUnit.abilityThree.abilityElementSprite;
+        }
 
         if (playerUnit.abilityFour != null)
+        {
             abilityFourText.text = playerUnit.abilityFour.abilityName;
+            abilityFourElement.sprite = playerUnit.abilityFour.abilityElementSprite;
+        }
 
         displayText.text = "chose an action...";
     }
 
     IEnumerator PlayerAbility(AbilityData ability)
     {
-        if (ability.abilityType == AbilityType.ATTACK)
+        if (ability.abilityType == AbilityType.ATTACK && ability.abilityAOE == AbilityAOE.NO)
         {
             bool isDead = selectedEnemy.TakeDamage(ElementCheck(ability, selectedEnemy));
 
@@ -214,6 +230,8 @@ public class BattleManager : MonoBehaviour
             Debug.Log(ElementCheck(ability, selectedEnemy));
 
             yield return new WaitForSeconds(2f);
+
+            selectedEnemy.GetComponent<Enemy>().selectionAuraObj.SetActive(false);
 
             if (isDead)
             {
@@ -239,6 +257,8 @@ public class BattleManager : MonoBehaviour
         }
         else if (ability.abilityType == AbilityType.HEAL)
         {
+            selectedEnemy.GetComponent<Enemy>().selectionAuraObj.SetActive(false);
+
             if (playerUnit.currentHp < playerUnit.maxHp)
             {
                 playerUnit.Heal(ability.abilityHealCapacity);
@@ -257,6 +277,114 @@ public class BattleManager : MonoBehaviour
 
                 displayText.text = "chose an action...";
             }
+        }
+        else if (ability.abilityType == AbilityType.ATTACK && ability.abilityAOE == AbilityAOE.YES)
+        {
+            if (enemyGO1.GetComponent<Unit>().isUnitDead == false)
+            {
+                bool isDead = enemyGO1.GetComponent<Unit>().TakeDamage(ElementCheck(ability, enemyGO1.GetComponent<Unit>()));
+                enemyGO1.GetComponent<Enemy>().selectionAuraObj.SetActive(true);
+
+                enemyGO1.GetComponent<Unit>().battleHUD.SetHpAndMana(enemyGO1.GetComponent<Unit>().currentHp, enemyGO1.GetComponent<Unit>().currentMana);
+                if (isDead)
+                {
+                    enemyCounter--;
+                    enemyGO1.GetComponent<Unit>().gameObject.SetActive(false);
+
+                    if (enemyCounter == 0)
+                    {
+                        state = BattleState.WON;
+                        EndBattle();
+                    }
+                }
+            }
+
+            if (enemyGO2.GetComponent<Unit>().isUnitDead == false)
+            {
+                bool isDead = enemyGO2.GetComponent<Unit>().TakeDamage(ElementCheck(ability, enemyGO2.GetComponent<Unit>()));
+                enemyGO2.GetComponent<Enemy>().selectionAuraObj.SetActive(true);
+
+                enemyGO2.GetComponent<Unit>().battleHUD.SetHpAndMana(enemyGO2.GetComponent<Unit>().currentHp, enemyGO2.GetComponent<Unit>().currentMana);
+                if (isDead)
+                {
+                    enemyCounter--;
+                    enemyGO2.GetComponent<Unit>().gameObject.SetActive(false);
+
+                    if (enemyCounter == 0)
+                    {
+                        state = BattleState.WON;
+                        EndBattle();
+                    }
+                }
+            }
+
+            if (enemyGO3.GetComponent<Unit>().isUnitDead == false)
+            {
+                bool isDead = enemyGO3.GetComponent<Unit>().TakeDamage(ElementCheck(ability, enemyGO3.GetComponent<Unit>()));
+                enemyGO3.GetComponent<Enemy>().selectionAuraObj.SetActive(true);
+
+                enemyGO3.GetComponent<Unit>().battleHUD.SetHpAndMana(enemyGO3.GetComponent<Unit>().currentHp, enemyGO3.GetComponent<Unit>().currentMana);
+                if (isDead)
+                {
+                    enemyCounter--;
+                    enemyGO3.GetComponent<Unit>().gameObject.SetActive(false);
+
+                    if (enemyCounter == 0)
+                    {
+                        state = BattleState.WON;
+                        EndBattle();
+                    }
+                }
+            }
+
+            if (enemyGO4.GetComponent<Unit>().isUnitDead == false)
+            {
+                bool isDead = enemyGO4.GetComponent<Unit>().TakeDamage(ElementCheck(ability, enemyGO4.GetComponent<Unit>()));
+                enemyGO4.GetComponent<Enemy>().selectionAuraObj.SetActive(true);
+
+                enemyGO4.GetComponent<Unit>().battleHUD.SetHpAndMana(enemyGO4.GetComponent<Unit>().currentHp, enemyGO4.GetComponent<Unit>().currentMana);
+                if (isDead)
+                {
+                    enemyCounter--;
+                    enemyGO4.GetComponent<Unit>().gameObject.SetActive(false);
+
+                    if (enemyCounter == 0)
+                    {
+                        state = BattleState.WON;
+                        EndBattle();
+                    }
+                }
+            }
+
+            if (enemyGO5.GetComponent<Unit>().isUnitDead == false)
+            {
+                bool isDead = enemyGO5.GetComponent<Unit>().TakeDamage(ElementCheck(ability, enemyGO5.GetComponent<Unit>()));
+                enemyGO5.GetComponent<Enemy>().selectionAuraObj.SetActive(true);
+
+                enemyGO5.GetComponent<Unit>().battleHUD.SetHpAndMana(enemyGO5.GetComponent<Unit>().currentHp, enemyGO5.GetComponent<Unit>().currentMana);
+                if (isDead)
+                {
+                    enemyCounter--;
+                    enemyGO5.GetComponent<Unit>().gameObject.SetActive(false);
+
+                    if (enemyCounter == 0)
+                    {
+                        state = BattleState.WON;
+                        EndBattle();
+                    }
+                }
+            }
+
+            yield return new WaitForSeconds(2f);
+
+            enemyGO1.GetComponent<Enemy>().selectionAuraObj.SetActive(false);
+            enemyGO2.GetComponent<Enemy>().selectionAuraObj.SetActive(false);
+            enemyGO3.GetComponent<Enemy>().selectionAuraObj.SetActive(false);
+            enemyGO4.GetComponent<Enemy>().selectionAuraObj.SetActive(false);
+            enemyGO5.GetComponent<Enemy>().selectionAuraObj.SetActive(false);
+
+            state = BattleState.ENEMYSELECT;
+            EnemyPlayerSelect();
         }
     }
 

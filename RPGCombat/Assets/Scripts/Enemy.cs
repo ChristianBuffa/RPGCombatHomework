@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public GameObject selectionAuraObj;
     private Collider2D collider;
     private BattleManager battleManager;
 
@@ -46,6 +47,22 @@ public class Enemy : MonoBehaviour
                 Debug.Log("errore");
                 return;
             }
+        }
+    }
+
+    private void OnMouseEnter()
+    {
+        if(battleManager.state == BattleState.PLAYERSELECT)
+        {
+            selectionAuraObj.SetActive(true);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (battleManager.state == BattleState.PLAYERSELECT)
+        {
+            selectionAuraObj.SetActive(false);
         }
     }
 }
