@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29733b5358a17f44aaa1de55847d72d5, type: 3}
   m_Name: LIGHT ATTACK
   m_EditorClassIdentifier: 
-  abilityName: light aoe
+  abilityName: ray of light
   abilityElementSprite: {fileID: 21300000, guid: f0c87da9139b0fc40ae547b6a4b4bc8a, type: 3}
   abilityElementType: light
   abilityAOE: 0

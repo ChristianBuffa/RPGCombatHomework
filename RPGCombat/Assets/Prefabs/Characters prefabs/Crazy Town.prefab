@@ -60,8 +60,8 @@ MonoBehaviour:
   elementSprite: {fileID: 0}
   unitData: {fileID: 11400000, guid: bc9e8ab1136677b48a92e2207cf96747, type: 2}
   elementData: {fileID: 11400000, guid: 0d9df2303cdd09e4d9df4b7773268802, type: 2}
-  abilityOne: {fileID: 11400000, guid: f4534198917512b44a531995b1778322, type: 2}
-  abilityTwo: {fileID: 11400000, guid: 7a0917048f93ce4439c32a053d867447, type: 2}
+  abilityOne: {fileID: 11400000, guid: 7a0917048f93ce4439c32a053d867447, type: 2}
+  abilityTwo: {fileID: 11400000, guid: f4534198917512b44a531995b1778322, type: 2}
   abilityThree: {fileID: 0}
   abilityFour: {fileID: 0}
   battleHUD: {fileID: 0}

@@ -197,11 +197,21 @@ public class BattleManager : MonoBehaviour
             abilityOneText.text = playerUnit.abilityOne.abilityName;
             abilityOneElement.sprite = playerUnit.abilityOne.abilityElementSprite;
         }
+        else
+        {
+            abilityOneText.text = null;
+            abilityOneElement.sprite = null;
+        }
 
         if (playerUnit.abilityTwo != null)
         {
             abilityTwoText.text = playerUnit.abilityTwo.abilityName;
             abilityTwoElement.sprite = playerUnit.abilityTwo.abilityElementSprite;
+        }
+        else
+        {
+            abilityTwoText.text = null;
+            abilityTwoElement.sprite = null;
         }
 
         if (playerUnit.abilityThree != null)
@@ -209,11 +219,21 @@ public class BattleManager : MonoBehaviour
             abilityThreeText.text = playerUnit.abilityThree.abilityName;
             abilityThreeElement.sprite = playerUnit.abilityThree.abilityElementSprite;
         }
+        else
+        {
+            abilityThreeText.text = null;
+            abilityThreeElement.sprite = null;
+        }
 
         if (playerUnit.abilityFour != null)
         {
             abilityFourText.text = playerUnit.abilityFour.abilityName;
             abilityFourElement.sprite = playerUnit.abilityFour.abilityElementSprite;
+        }
+        else
+        {
+            abilityFourText.text = null;
+            abilityFourElement.sprite = null;
         }
 
         displayText.text = "chose an action...";
